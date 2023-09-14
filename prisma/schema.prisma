@@ -52,7 +52,6 @@ model Store {
   billboards Billboard[]
   categories Category[]
   products   Product[]
-  orders     Order[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }
@@ -138,8 +137,6 @@ model Image {
 
 model Order {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  storeId    String      @db.ObjectId
-  store      Store       @relation(fields: [storeId], references: [id])
   userId     String      @db.ObjectId
   user       User        @relation(fields: [userId], references: [id])
   orderItems OrderItem[]
@@ -149,7 +146,6 @@ model Order {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 
-  @@index([storeId])
   @@index([userId])
 }
 

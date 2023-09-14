@@ -1,4 +1,4 @@
-import Image from 'next/image'
+
 import { ShoppingCart } from 'lucide-react'
 import { AuthForm } from '@/components/input/auth-form'
 export default function Home() {

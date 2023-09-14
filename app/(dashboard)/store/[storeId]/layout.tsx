@@ -21,6 +21,7 @@ export default async function DashboardLayout({
     },
   });
   
+  
   return (
     <>
       <Navbar user={currentUser} stores={stores} />

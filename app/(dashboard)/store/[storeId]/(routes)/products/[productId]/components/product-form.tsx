@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Category, Product } from "@prisma/client";
+import { Category, Image, Product } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -36,7 +36,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormProps {
   categories: Category[];
-  initialData: Product | null;
+  initialData: Product & {
+    images: Image[] 
+  } | null;
 }
 
 const formSchema = z.object({
@@ -54,6 +56,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   categories,
   initialData,
 }) => {
+  
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -159,7 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 <FormItem className="flex flex-col items-center justify-center space-y-4  col-span-2 rounded-xl">
                   <FormControl>
                     <ImageUpload
-                      value={field.value.map((image) => image.url)}
+                      value={field.value?.map((image) => image.url)}
                       disabled={loading}
                       onChange={(url) =>
                         field.onChange([...field.value, { url }])

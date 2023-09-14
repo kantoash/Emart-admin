@@ -30,8 +30,9 @@ const formSchema = z.object({
 export function AuthForm() {
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const router = useRouter();
-  const session = useSession();
+  const session = useSession();  
   const { toast } = useToast();
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

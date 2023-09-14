@@ -6,6 +6,7 @@ import prismadb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 import React from "react";
 import getCurrentUser from "@/actions/getCurrentUser";
+
 const SetupPage = async () => {
   const currentUser = await getCurrentUser();
 
@@ -25,7 +26,6 @@ const SetupPage = async () => {
         <UserAvatar userImage={currentUser.image} isLarge />
         <Heading title={currentUser.name!} description={"your's user layout"} />
       </div>
-
       <StoreSwitcher items={stores} />
     </div>
   );

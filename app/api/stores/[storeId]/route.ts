@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
+
 
 
 export async function PATCH(
@@ -34,7 +35,7 @@ export async function PATCH(
         name
       }
     });
-  
+
     return NextResponse.json(store);
   } catch (error) {
     console.log('[STORE_PATCH]', error);
@@ -64,10 +65,33 @@ export async function DELETE(
         userId: currentUser.id
       }
     });
-  
+
     return NextResponse.json(store);
   } catch (error) {
     console.log('[STORE_DELETE]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
+
+export async function GET(req: Request, { params }: { params: { storeId: string } }) {
+  try {
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 })
+    }
+
+    const store = await prismadb.store.findUnique({
+      where: {
+        id: params.storeId,
+      },
+      include: {
+        billboards: true,
+        categories: true,
+      }
+    })
+
+    return NextResponse.json(store)
+  } catch (error) {
+    console.log('[STORE_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}

@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
 
 import { SettingsForm } from "./components/settings-form";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const SettingsPage = async ({
   params
